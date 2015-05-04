@@ -38,7 +38,7 @@ function wobblex_slides_func( $atts ) {
 	$a = shortcode_atts( array(
 		'slug' => 'wxslider'
 		), $atts );
-	if (!query_posts( array( 'post_type' => 'wxslide' ,'wxslider' => $a['slug'] ) )) {
+	if (!query_posts( array( 'post_type' => 'product' ,'wxslider' => $a['slug'] ) )) {
 		echo  'No Slideshows could be found';
 		return;
 	}

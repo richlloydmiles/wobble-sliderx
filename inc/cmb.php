@@ -53,7 +53,7 @@ function cmb_wobblex_slides_metaboxes( array $meta_boxes ) {
 
 	$meta_boxes[] = array(
 		'title' => 'wxSlide Fields',
-		'pages' => 'wxslide',
+		'pages' => 'product',
         // 'show_on' => array( 'id' => array( 1 ) ),
         // 'hide_on' => array( 'page-template' => array( 'test-page-template.php' ) ),
 		'context'    => 'normal',

@@ -5,7 +5,29 @@
 $t_id =  get_term_by('slug', $a['slug'], 'wxsliders')->term_id;
 $term_meta = get_option( "taxonomy_term_$t_id" );
 extract((array) $term_meta);
-query_posts( array( 'post_type' => 'wxslide' , 'wxsliders' => $a['slug'] ) );?>
+query_posts( array( 'post_type' => 'product' , 'wxsliders' => $a['slug'] ) );?>
+<script>   
+	function loadjscssfile(filename, filetype){
+    if (filetype=="js"){ //if filename is a external JavaScript file
+    	var fileref=document.createElement('script')
+    	fileref.setAttribute("type","text/javascript")
+    	fileref.setAttribute("src", filename)
+    }
+    else if (filetype=="css"){ //if filename is an external CSS file
+    	var fileref=document.createElement("link")
+    	fileref.setAttribute("rel", "stylesheet")
+    	fileref.setAttribute("type", "text/css")
+    	fileref.setAttribute("href", filename)
+    }
+    if (typeof fileref!="undefined")
+    	document.getElementsByTagName("head")[0].appendChild(fileref)
+}
+jQuery(document).ready(function($) {
+
+	loadjscssfile("//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css", "css"); 
+});
+</script>
+
 <style>
 	.background-img {
 		width: 100%;
@@ -22,18 +44,24 @@ query_posts( array( 'post_type' => 'wxslide' , 'wxsliders' => $a['slug'] ) );?>
 	.bx-wrapper .bx-prev{
 		background: none!important;
 	}
+	.wxchev {
+		font-size: 38px;
+	}
+
+	.bx-wrapper .bx-next {
+		right:0!important;
+	}
 </style>
 <?php 
 if (!isset($wxslider_chevron_left) || empty( $wxslider_chevron_left) || $wxslider_chevron_left =='<br />') { $wxslider_chevron_left = 'fa-angle-left';  }
 if (!isset($wxslider_chevron_right) || empty( $wxslider_chevron_right) || $wxslider_chevron_right =='<br />') { $wxslider_chevron_right = 'fa-angle-right';  }
 if (!isset($wxslider_height) || empty( $wxslider_height) || $wxslider_height =='<br />') { $wxslider_height = '260';  }
-if (!isset($wxslider_number) || empty( $wxslider_number) || $wxslider_number =='<br />') { $wxslider_number = '2';  }
+if (!isset($wxslider_number) || empty( $wxslider_number) || $wxslider_number =='<br />') { $wxslider_number = '1';  }
 ?>
 <ul class="bxslider" style="padding:0;margin:0;">
 	<?php
 	if ( have_posts() ) : while ( have_posts() ) : the_post();?>
 	<li><div class="background-img" style="height:<?php echo $wxslider_height; ?>px;background-image:url('<?php echo wp_get_attachment_image_src( get_post_meta( get_the_ID(), 'image_field', TRUE ), 'full' )[0]; ?>');">
-		<?php echo the_title(); ?>
 		<?php echo get_post_meta( get_the_ID(), 'content_field', TRUE ); ?>
 	</div>
 </li>
@@ -44,8 +72,8 @@ if (!isset($wxslider_number) || empty( $wxslider_number) || $wxslider_number =='
 <script>
 	jQuery(document).ready(function($) {
 		jQuery('.bxslider').bxSlider({
-			nextText: '<i class="fa <?php echo $wxslider_chevron_right; ?>"></a>',
-			prevText: '<i class="fa <?php echo $wxslider_chevron_left; ?>"></a>',
+			nextText: '<i class="fa wxchev <?php echo $wxslider_chevron_right; ?>"></a>',
+			prevText: '<i class="fa wxchev <?php echo $wxslider_chevron_left; ?>"></a>',
 			slideWidth: 9000,
 			minSlides: '<?php echo $wxslider_number; ?>',
 			maxSlides: '<?php echo $wxslider_number; ?>'
