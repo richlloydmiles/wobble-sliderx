@@ -1,14 +1,14 @@
 <?php
 
-// Add the fields to the "slideshows" taxonomy, using our callback function  
+// Add the fields to the "wxsliders" taxonomy, using our callback function  
 add_action( 'wxsliders_edit_form_fields', 'wxsliders_taxonomy_custom_fields', 10, 2 );  
 
 // Save the changes made on the "slideshows" taxonomy, using our callback function  
-add_action( 'edited_slideshows', 'save_taxonomy_custom_fields_wxsliders', 10, 2 );  
+add_action( 'edited_wxsliders', 'save_taxonomy_custom_fields_wxsliders', 10, 2 );  
 // A callback function to add a custom field to our "slideshows" taxonomy  
 function wxsliders_taxonomy_custom_fields($tag) {  
    // Check for existing taxonomy meta for the term you're editing  
-    $t_id = $tag->term_id; // Get the ID of the term you're editing  
+    $t_id = $tag->term_id; // Get the ID of the term you're editing 
     $term_meta = get_option( "taxonomy_term_$t_id" ); // Do the check  
     ?>
     <style>
@@ -18,6 +18,18 @@ function wxsliders_taxonomy_custom_fields($tag) {
     </style>
     <!-- TEMPLATE SECTION ____________________________________________________________________________________-->
     <tr class="func-tab">  
+        <th scope="row" valign="top">  
+            <label for="term_meta[wxslider_auto]"><?php  _e( 'Automatic Animation', 'wobble' ); ?></label>  
+        </th>  
+        <td> 
+            <input type="text" class="wxslider_auto" name="term_meta[wxslider_auto]" id="term_meta[wxslider_auto]" value="<?php echo $term_meta['wxslider_auto'] ? $term_meta['wxslider_auto'] : ''; ?>">
+            <p class="description">
+                Echo some text
+            </p>
+        </td>  
+    </tr>
+
+<!--     <tr class="general-tab">  
         <th scope="row" valign="top">  
             <label for="term_meta[slider_auto]"><?php  _e( 'Automatic Animation', 'wobble' ); ?></label>  
         </th>  
@@ -29,35 +41,22 @@ function wxsliders_taxonomy_custom_fields($tag) {
               Animate automatically, true or false  
           </p>
       </td>  
-  </tr>
-  <tr class="general-tab">  
-    <th scope="row" valign="top">  
-        <label for="term_meta[slider_auto]"><?php  _e( 'Automatic Animation', 'wobble' ); ?></label>  
-    </th>  
-    <td> 
-        <input type="radio" name="wobble_auto" value="true">True
-        <input type="radio" name="wobble_auto" value="false">False
-        <input type="hidden" class="wobble_auto" name="term_meta[slider_auto]" id="term_meta[slider_auto]" value="<?php echo $term_meta['slider_auto'] ? $term_meta['slider_auto'] : ''; ?>">
-        <p class="description">
-          Animate automatically, true or false  
-      </p>
-  </td>  
-</tr>
-<?php 
-ob_start();
-?>
-<h2 class="nav-tab-wrapper wxslider-nav">
-  <a id="general-tab" class="nav-tab nav-tab-active">General</a>
-  <a id="func-tab" class="nav-tab">Functionality</a>
-  <a id="display-tab" class="nav-tab">Display</a>
-</h2>
-<?php
-$nav = preg_replace('/^\s+|\n|\r|\s+$/m', '', ob_get_contents());
+  </tr> -->
+  <?php 
+  ob_start();
+  ?>
+  <h2 class="nav-tab-wrapper wxslider-nav">
+      <a id="general-tab" class="nav-tab nav-tab-active">General</a>
+      <a id="func-tab" class="nav-tab">Functionality</a>
+      <a id="display-tab" class="nav-tab">Display</a>
+  </h2>
+  <?php
+  $nav = preg_replace('/^\s+|\n|\r|\s+$/m', '', ob_get_contents());
 
 
-ob_end_clean();
-?>
-<script>
+  ob_end_clean();
+  ?>
+  <script>
     jQuery(document).ready(function($) {
         jQuery('#edittag').prepend('<?php echo $nav; ?>');
         jQuery('.wrap>h2').text('General wxSlider Settings');

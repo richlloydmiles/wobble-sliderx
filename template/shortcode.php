@@ -2,6 +2,9 @@
 /**
  * This is the content for the wxslides shortcode
  **/
+    $t_id =  get_term_by('slug', $a['slug'], 'wxsliders')->term_id;
+    $term_meta = get_option( "taxonomy_term_$t_id" );
+    extract((array) $term_meta);
 query_posts( array( 'post_type' => 'wxslide' , 'wxsliders' => $a['slug'] ) );?>
 <style>
 	.background-img {
@@ -25,11 +28,10 @@ query_posts( array( 'post_type' => 'wxslide' , 'wxsliders' => $a['slug'] ) );?>
 <?php endwhile; endif; wp_reset_query(); 
 ?>
 </ul>
+<?php echo $wxslider_auto; ?>
 <script>
 	jQuery(document).ready(function($) {
 		jQuery('.bxslider').bxSlider({
-			ticker: true,
-			speed: 10000
 		});		
 	});
 </script>

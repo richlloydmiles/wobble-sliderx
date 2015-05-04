@@ -36,7 +36,7 @@ function wobblex_slides_func( $atts ) {
   // query_posts( array( 'post_type' => 'listing', 'listing_category' => 'acupuncture-naturopathic' ) );
 	$posts_array = get_posts( $atts );
 	$a = shortcode_atts( array(
-		'slug' => 'slideshow'
+		'slug' => 'wxslider'
 		), $atts );
 	if (!query_posts( array( 'post_type' => 'wxslide' ,'wxslider' => $a['slug'] ) )) {
 		echo  'No Slideshows could be found';
